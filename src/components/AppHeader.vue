@@ -17,7 +17,6 @@ export default {
           <li>Nav menu</li>
         </ul>
       </nav>
-      <h1>Ciao</h1>
     </div>
   </header>
 </template>
