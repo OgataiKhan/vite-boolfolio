@@ -6,6 +6,7 @@ export default {
   name: 'ProjectList',
   data() {
     return {
+      currentPage: 1,
       projects: [],
       'baseUrl': 'http://127.0.0.1:8000',
       'apiUrls': {
@@ -18,12 +19,24 @@ export default {
   },
   methods: {
     getProjects() {
-      axios.get(this.baseUrl + this.apiUrls.projects).then(response => {
+      axios.get(this.baseUrl + this.apiUrls.projects, {
+        params: {
+          page: this.currentPage,
+        },
+      }).then(response => {
         console.log(response);
-        this.projects = response.data.data;
+        this.projects = response.data.results.data;
       }).catch(error => {
         console.log(error);
       });
+    },
+    nextPage() {
+      this.currentPage++;
+      this.getProjects();
+    },
+    prevPage() {
+      this.currentPage--;
+      this.getProjects();
     },
   },
   created() {
@@ -42,6 +55,12 @@ export default {
           <ProjectCard :project="project" />
         </div>
       </div>
+      <nav class="my-5">
+        <ul class="d-flex justify-content-between list-unstyled">
+          <li class="btn btn-secondary" @click="prevPage">Previous</li>
+          <li class="btn btn-info" @click="nextPage">Next</li>
+        </ul>
+      </nav>
     </div>
   </main>
 </template>
