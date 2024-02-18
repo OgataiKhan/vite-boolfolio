@@ -6,6 +6,7 @@ export default {
   name: 'ProjectList',
   data() {
     return {
+      loading: false,
       currentPage: 1,
       responseData: {},
       projects: [],
@@ -20,6 +21,7 @@ export default {
   },
   methods: {
     getProjects() {
+      this.loading = true;
       axios.get(this.baseUrl + this.apiUrls.projects, {
         params: {
           page: this.currentPage,
@@ -28,6 +30,8 @@ export default {
         this.responseData = response.data;
       }).catch(error => {
         console.log(error);
+      }).finally(() => {
+        this.loading = false;
       });
     },
     nextPage() {
@@ -50,21 +54,27 @@ export default {
   <main>
     <div class="container py-4">
       <h1 class="text-center">Projects</h1>
-      <div class="row mt-4 g-4">
+      <div v-if="loading" class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div class="row mt-4 g-4" v-else>
         <div class="col col-12 col-md-4" v-for="project in responseData.results?.data" :key="project.id">
           <ProjectCard :project="project" />
         </div>
+        <nav class="my-5">
+          <ul class="d-flex justify-content-between list-unstyled">
+            <li>
+              <button class="btn btn-secondary" @click="prevPage"
+                v-show="responseData.results?.prev_page_url">Previous</button>
+            </li>
+            <li>
+              <button class="btn btn-info" @click="nextPage" v-show="responseData.results?.next_page_url">Next</button>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav class="my-5">
-        <ul class="d-flex justify-content-between list-unstyled">
-          <li>
-            <button class="btn btn-secondary" @click="prevPage" v-show="responseData.results?.prev_page_url">Previous</button>
-          </li>
-          <li>
-            <button class="btn btn-info" @click="nextPage" v-show="responseData.results?.next_page_url">Next</button>
-          </li>
-        </ul>
-      </nav>
     </div>
   </main>
 </template>
