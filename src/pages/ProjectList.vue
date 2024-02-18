@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import ProjectCard from '../components/AppMainProject.vue';
+import Loading from '../components/Loading.vue';
 
 export default {
   name: 'ProjectList',
@@ -18,6 +19,7 @@ export default {
   },
   components: {
     ProjectCard,
+    Loading,
   },
   methods: {
     getProjects() {
@@ -54,11 +56,7 @@ export default {
   <main>
     <div class="container py-4">
       <h1 class="text-center">Projects</h1>
-      <div v-if="loading" class="d-flex justify-content-center">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
+      <Loading v-if="loading" />
       <div class="row mt-4 g-4" v-else>
         <div class="col col-12 col-md-4" v-for="project in responseData.results?.data" :key="project.id">
           <ProjectCard :project="project" />
