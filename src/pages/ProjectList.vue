@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       currentPage: 1,
+      responseData: {},
       projects: [],
       'baseUrl': 'http://127.0.0.1:8000',
       'apiUrls': {
@@ -24,8 +25,7 @@ export default {
           page: this.currentPage,
         },
       }).then(response => {
-        console.log(response);
-        this.projects = response.data.results.data;
+        this.responseData = response.data;
       }).catch(error => {
         console.log(error);
       });
@@ -51,14 +51,18 @@ export default {
     <div class="container py-4">
       <h1 class="text-center">Projects</h1>
       <div class="row mt-4 g-4">
-        <div class="col col-12 col-md-4" v-for="project in projects" :key="project.id">
+        <div class="col col-12 col-md-4" v-for="project in responseData.results?.data" :key="project.id">
           <ProjectCard :project="project" />
         </div>
       </div>
       <nav class="my-5">
         <ul class="d-flex justify-content-between list-unstyled">
-          <li class="btn btn-secondary" @click="prevPage">Previous</li>
-          <li class="btn btn-info" @click="nextPage">Next</li>
+          <li>
+            <button class="btn btn-secondary" @click="prevPage" v-show="responseData.results?.prev_page_url">Previous</button>
+          </li>
+          <li>
+            <button class="btn btn-info" @click="nextPage" v-show="responseData.results?.next_page_url">Next</button>
+          </li>
         </ul>
       </nav>
     </div>
