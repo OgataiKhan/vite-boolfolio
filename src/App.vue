@@ -38,7 +38,8 @@ export default {
 
 <template>
   <AppHeader />
-  <AppMain :projects="projects" />
+  <!-- <AppMain :projects="projects" /> -->
+  <router-view></router-view>
   <AppFooter />
 </template>
 

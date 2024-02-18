@@ -18,7 +18,7 @@ export default {
     <div class="container py-4">
       <h1 class="text-center">Projects</h1>
       <div class="row mt-4 g-4">
-        <div class="col col-md-4" v-for="project in projects" :key="project.id">
+        <div class="col col-12 col-md-4" v-for="project in projects" :key="project.id">
           <ProjectCard :project="project" />
         </div>
       </div>
