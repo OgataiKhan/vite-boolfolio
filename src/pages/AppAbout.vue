@@ -7,7 +7,11 @@ export default {
 </script>
 
 <template>
-  <main>About page</main>
+  <main>
+    <div class="container">
+      About page
+    </div>
+  </main>
 </template>
 
 <style scoped></style>

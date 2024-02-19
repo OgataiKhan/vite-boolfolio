@@ -13,7 +13,9 @@ export default {
         Page Not Found
       </h2>
       <p>
-        <router-link :to="{ name: 'home' }" class="nav-link">Back to home</router-link>
+        <button class="btn btn-primary">
+          <router-link :to="{ name: 'home' }" class="nav-link">Back to home</router-link>
+        </button>
       </p>
     </div>
   </main>
