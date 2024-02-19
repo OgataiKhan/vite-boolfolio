@@ -11,9 +11,9 @@ export default {
       currentPage: 1,
       responseData: {},
       projects: [],
-      'baseUrl': 'http://127.0.0.1:8000',
-      'apiUrls': {
-        'projects': '/api/projects'
+      baseUrl: 'http://127.0.0.1:8000',
+      apiUrls: {
+        projects: '/api/projects'
       }
     }
   },
