@@ -54,14 +54,8 @@ export default {
     },
   },
   created() {
+    this.currentPage = this.$route.query?.page ?? 1;
     this.getProjects();
-    this.$watch(
-      () => this.$route.params,
-      (toParams, previousParams) => {
-        this.currentPage = this.$route.query?.page ?? 1;
-        this.getProjects();
-      }
-    )
   }
 };
 
