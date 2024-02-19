@@ -19,11 +19,11 @@ export default {
     getProject() {
       axios.get(this.baseUrl + this.apiUrls.projects + '/' + this.$route.params.slug
       ).then(response => {
-        // if (response.data.result) {
+        if (response.data.result) {
         this.project = response.data.result;
-        // } else {
-        //   this.$router.push({ name: 'not-found' });
-        // }
+        } else {
+          this.$router.push({ path: '/project-not-found' });
+        }
       }).catch(error => {
         console.log(error);
       });
