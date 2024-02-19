@@ -21,7 +21,9 @@ export default {
       <div class="card-body">
         <h5 class="card-title">{{ project.title }}</h5>
         <p class="card-text">{{ project.description }}</p>
-        <a href="#" class="btn btn-primary">View details</a>
+        <!-- <a href="#" class="btn btn-primary">View details</a> -->
+        <!-- <a href="#" class="btn btn-primary">View details</a> -->
+        <router-link :to="{ name: 'single-project', params: { slug: project.slug } }" class="btn btn-primary">See more</router-link>
       </div>
     </div>
 </template>

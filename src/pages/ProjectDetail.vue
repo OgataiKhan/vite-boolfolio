@@ -1,7 +1,10 @@
 <script>
 
 export default {
-  name: 'NotFound',
+  name: 'ProjectDetail',
+  created() {
+    
+  }
 };
 
 </script>
@@ -10,11 +13,11 @@ export default {
   <main>
     <div class="container">
       <h2>
-        Page Not Found
+        Project details
       </h2>
       <p>
         <button class="btn btn-primary">
-          <router-link :to="{ name: 'home' }" class="nav-link">Back to Home</router-link>
+          <router-link :to="{ name: 'projects' }" class="nav-link">Back to Projects</router-link>
         </button>
       </p>
     </div>
