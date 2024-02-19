@@ -35,6 +35,15 @@ export default {
     <div class="container">
       <h2>{{ project.title }}</h2>
       <p>{{ project.description }}</p>
+      <p>Project type: {{ project.type.title }}</p>
+      <div v-if="project.technologies.length > 0">
+        Technologies used:
+        <ul>
+          <li v-for="technology in project.technologies">
+            {{ technology.title }}
+          </li>
+        </ul>
+      </div>
       <img v-if="project.image_path" :src="imageUrl + project.image_path" class="card-img-top" :alt="project.title">
       <p v-if="project.url"><a :href="project.url">Link to project</a></p>
       <p>
