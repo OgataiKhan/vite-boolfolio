@@ -5,7 +5,9 @@ export default {
   name: 'ProjectDetail',
   data() {
     return {
-      project: {},
+      project: {
+        technologies: [],
+      },
       baseUrl: 'http://127.0.0.1:8000',
       imageUrl: 'http://127.0.0.1:8000/storage/',
       apiUrls: {
@@ -17,7 +19,11 @@ export default {
     getProject() {
       axios.get(this.baseUrl + this.apiUrls.projects + '/' + this.$route.params.slug
       ).then(response => {
+        // if (response.data.result) {
         this.project = response.data.result;
+        // } else {
+        //   this.$router.push({ name: 'not-found' });
+        // }
       }).catch(error => {
         console.log(error);
       });
@@ -35,7 +41,7 @@ export default {
     <div class="container">
       <h2>{{ project.title }}</h2>
       <p>{{ project.description }}</p>
-      <p>Project type: {{ project.type.title }}</p>
+      <p v-if="project.type">Project type: {{ project.type.title }}</p>
       <div v-if="project.technologies.length > 0">
         Technologies used:
         <ul>

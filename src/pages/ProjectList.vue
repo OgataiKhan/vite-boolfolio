@@ -38,15 +38,30 @@ export default {
     },
     nextPage() {
       this.currentPage++;
+      this.$router.push({
+        name: 'projects',
+        query: { page: this.currentPage }
+      });
       this.getProjects();
     },
     prevPage() {
       this.currentPage--;
+      this.$router.push({
+        name: 'projects',
+        query: { page: this.currentPage }
+      });
       this.getProjects();
     },
   },
   created() {
     this.getProjects();
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        this.currentPage = this.$route.query?.page ?? 1;
+        this.getProjects();
+      }
+    )
   }
 };
 
