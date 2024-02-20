@@ -58,10 +58,21 @@ export default {
     },
   },
   created() {
+    // Initial setup
     this.store.projects.currentPage = this.$route.query?.page ?? 1;
     this.store.projects.searchKey = this.$route.query?.key ?? null;
+    // Initial fetch
     this.getProjects();
-  }
+    // Watcher
+    this.$watch(
+      () => this.$route.query,
+      (toParams, previousParams) => {
+        this.store.projects.currentPage = toParams.page ?? 1;
+        this.store.projects.searchKey = toParams.key ?? null;
+        this.getProjects();
+      }
+    );
+  },
 };
 
 </script>
