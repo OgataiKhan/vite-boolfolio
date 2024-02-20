@@ -65,10 +65,10 @@ export default {
     this.getProjects();
     // Watcher
     this.$watch(
-      () => this.$route.query,
+      () => this.$route.params,
       (toParams, previousParams) => {
-        this.store.projects.currentPage = toParams.page ?? 1;
-        this.store.projects.searchKey = toParams.key ?? null;
+        this.store.projects.currentPage = this.$route.query.page ?? 1;
+        this.store.projects.searchKey = this.$route.query.key ?? null;
         this.getProjects();
       }
     );
