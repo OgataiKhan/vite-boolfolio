@@ -2,19 +2,17 @@
 import axios from 'axios';
 import ProjectCard from '../components/AppMainProject.vue';
 import Loading from '../components/Loading.vue';
+import store from '../store';
 
 export default {
   name: 'ProjectList',
   data() {
     return {
+      store,
       loading: false,
       currentPage: 1,
       responseData: {},
       projects: [],
-      baseUrl: 'http://127.0.0.1:8000',
-      apiUrls: {
-        projects: '/api/projects'
-      }
     }
   },
   components: {
@@ -24,7 +22,7 @@ export default {
   methods: {
     getProjects() {
       this.loading = true;
-      axios.get(this.baseUrl + this.apiUrls.projects, {
+      axios.get(this.store.api.baseUrl + this.store.api.apiUrls.projects, {
         params: {
           page: this.currentPage,
         },

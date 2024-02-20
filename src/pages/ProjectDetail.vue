@@ -1,28 +1,25 @@
 <script>
 import axios from 'axios';
+import store from '../store';
 
 export default {
   name: 'ProjectDetail',
   data() {
     return {
+      store,
       project: {
         technologies: [],
       },
-      baseUrl: 'http://127.0.0.1:8000',
-      imageUrl: 'http://127.0.0.1:8000/storage/',
-      apiUrls: {
-        projects: '/api/projects'
-      }
     }
   },
   methods: {
     getProject() {
-      axios.get(this.baseUrl + this.apiUrls.projects + '/' + this.$route.params.slug
+      axios.get(this.store.api.baseUrl + this.store.api.apiUrls.projects + '/' + this.$route.params.slug
       ).then(response => {
         if (response.data.result) {
         this.project = response.data.result;
         } else {
-          this.$router.push({ path: '/project-not-found' });
+          this.$router.push({ name: 'not-found' });
         }
       }).catch(error => {
         console.log(error);
@@ -50,7 +47,7 @@ export default {
           </li>
         </ul>
       </div>
-      <img v-if="project.image_path" :src="imageUrl + project.image_path" class="card-img-top" :alt="project.title">
+      <img v-if="project.image_path" :src="this.store.api.baseUrl + this.store.api.storagePath + project.image_path" class="card-img-top" :alt="project.title">
       <p v-if="project.url"><a :href="project.url">Link to project</a></p>
       <p>
         <button class="btn btn-primary">
