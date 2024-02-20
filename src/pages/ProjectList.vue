@@ -10,8 +10,7 @@ export default {
   data() {
     return {
       store,
-      loading: false,
-      currentPage: 1,
+      loading: false, 
       responseData: {},
       errors: null,
       projects: [],
@@ -28,7 +27,7 @@ export default {
       this.loading = true;
       axios.get(this.store.api.baseUrl + this.store.api.apiUrls.projects, {
         params: {
-          page: this.currentPage,
+          page: this.store.projects.currentPage,
           key: this.store.projects.searchKey,
         },
       }).then(response => {
@@ -42,24 +41,25 @@ export default {
       });
     },
     nextPage() {
-      this.currentPage++;
+      this.store.projects.currentPage++;
       this.$router.push({
         name: 'projects',
-        query: { page: this.currentPage }
+        query: { page: this.store.projects.currentPage, key: this.store.projects.searchKey }
       });
       this.getProjects();
     },
     prevPage() {
-      this.currentPage--;
+      this.store.projects.currentPage--;
       this.$router.push({
         name: 'projects',
-        query: { page: this.currentPage }
+        query: { page: this.store.projects.currentPage, key: this.store.projects.searchKey }
       });
       this.getProjects();
     },
   },
   created() {
-    this.currentPage = this.$route.query?.page ?? 1;
+    this.store.projects.currentPage = this.$route.query?.page ?? 1;
+    this.store.projects.searchKey = this.$route.query?.key ?? null;
     this.getProjects();
   }
 };

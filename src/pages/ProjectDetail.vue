@@ -51,7 +51,7 @@ export default {
       <p v-if="project.url"><a :href="project.url">Link to project</a></p>
       <p>
         <button class="btn btn-primary">
-          <router-link :to="{ name: 'projects' }" class="nav-link">Back to Projects</router-link>
+          <router-link :to="{ name: 'projects', query: { page:store.projects.currentPage, key: store.projects.searchKey } }" class="nav-link">Back to Projects</router-link>
         </button>
       </p>
     </div>

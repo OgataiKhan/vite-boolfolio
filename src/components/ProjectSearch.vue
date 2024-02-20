@@ -11,6 +11,10 @@ export default {
   emits: ['searchProject'],
   methods: {
     search() {
+      this.$router.push({
+        name: 'projects',
+        query: { page: 1, key: this.store.projects.searchKey }
+      });
       this.$emit('searchProject');
     },
   },
